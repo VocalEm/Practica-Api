@@ -6,12 +6,14 @@ class Database
 
     private function __construct()
     {
-        $host = 'localhost';
-        $port = '3306';
-        $dbname = 'api_php';
+        $host = getenv('DB_HOST');
+        $port = getenv('DB_PORT');
+        $dbname = getenv('DB_NAME');
+        $user = getenv('DB_USER');
+        $pass = getenv('DB_PASS');
         $dsn = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $dbname;
         try {
-            $this->conn = new \PDO($dsn, 'root', 'root', array(
+            $this->conn = new \PDO($dsn, $user, $pass, array(
                 \PDO::ATTR_EMULATE_PREPARES => false,
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
             ));
